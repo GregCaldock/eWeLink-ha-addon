@@ -39,55 +39,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var axios_1 = __importDefault(require("axios"));
-var AuthClass_1 = __importDefault(require("../class/AuthClass"));
-var url_1 = require("../config/url");
 var logger_1 = require("./logger");
 var registerEntityWithUniqueId = function (entityId, uniqueId) { return __awaiter(void 0, void 0, void 0, function () {
-    var restRequest, error_1;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                restRequest = axios_1.default.create({
-                    baseURL: url_1.HaRestURL,
-                    timeout: 5000,
-                });
-                restRequest.interceptors.request.use(function (val) {
-                    val.headers = {
-                        Authorization: "Bearer ".concat(AuthClass_1.default.curAuth),
-                        'Content-Type': 'application/json',
-                    };
-                    return val;
-                });
-                return [4, restRequest({
-                        method: 'PATCH',
-                        url: "/api/config/entity_registry/".concat(entityId.replace('.', '/')),
-                        data: {
-                            unique_id: uniqueId,
-                        },
-                    }).catch(function () {
-                        // Try alternative endpoint
-                        return restRequest({
-                            method: 'POST',
-                            url: '/api/config/entity_registry/update',
-                            data: {
-                                entity_id: entityId,
-                                unique_id: uniqueId,
-                            },
-                        });
-                    })];
-            case 1:
-                _a.sent();
-                logger_1.logger.debug("Entity registry update sent for: ".concat(entityId));
-                return [3, 3];
-            case 2:
-                error_1 = _a.sent();
-                logger_1.logger.debug("Entity registry API not available");
-                return [3, 3];
-            case 3:
-                return [2];
-        }
+        // Entity unique_id is already included in attributes from controller
+        // This is a placeholder for future Home Assistant API integration
+        logger_1.logger.debug("Entity unique_id: ".concat(entityId, " -> ").concat(uniqueId));
+        return [2];
     });
 }); };
 exports.default = registerEntityWithUniqueId;
