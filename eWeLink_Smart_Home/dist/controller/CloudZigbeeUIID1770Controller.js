@@ -55,6 +55,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var restApi_1 = require("../apis/restApi");
+var registerEntityWithUniqueId_1 = __importDefault(require("../utils/registerEntityWithUniqueId"));
 var CloudDeviceController_1 = __importDefault(require("./CloudDeviceController"));
 var CloudZigbeeUIID1770Controller = (function (_super) {
     __extends(CloudZigbeeUIID1770Controller, _super);

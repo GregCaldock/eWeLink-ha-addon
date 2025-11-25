@@ -106,6 +106,7 @@ var light_1 = require("../config/light");
 var coolkit_ws_1 = __importDefault(require("coolkit-ws"));
 var mergeDeviceParams_1 = __importDefault(require("../utils/mergeDeviceParams"));
 var restApi_1 = require("../apis/restApi");
+var registerEntityWithUniqueId_1 = __importDefault(require("../utils/registerEntityWithUniqueId"));
 var CloudUIID173Controller = (function (_super) {
     __extends(CloudUIID173Controller, _super);
     function CloudUIID173Controller(params) {
@@ -264,6 +265,7 @@ CloudUIID173Controller.prototype.updateState = function (params) {
                 state: state,
                 attributes: attributes
             });
+            (0, registerEntityWithUniqueId_1.default)(this.entityId, this.unique_id);
             return [2];
         });
     });

@@ -57,6 +57,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var lodash_1 = __importDefault(require("lodash"));
 var coolkit_ws_1 = __importDefault(require("coolkit-ws"));
 var restApi_1 = require("../apis/restApi");
+var registerEntityWithUniqueId_1 = __importDefault(require("../utils/registerEntityWithUniqueId"));
 var mergeDeviceParams_1 = __importDefault(require("../utils/mergeDeviceParams"));
 var CloudDeviceController_1 = __importDefault(require("./CloudDeviceController"));
 var EFanPresetModes_1 = __importDefault(require("../ts/enum/EFanPresetModes"));

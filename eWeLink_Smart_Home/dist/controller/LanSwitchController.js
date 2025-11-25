@@ -56,6 +56,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var lanDeviceApi_1 = require("../apis/lanDeviceApi");
 var restApi_1 = require("../apis/restApi");
+var registerEntityWithUniqueId_1 = __importDefault(require("../utils/registerEntityWithUniqueId"));
 var LanDeviceController_1 = __importDefault(require("./LanDeviceController"));
 var LanSwitchController = (function (_super) {
     __extends(LanSwitchController, _super);

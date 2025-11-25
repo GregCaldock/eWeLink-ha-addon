@@ -43,6 +43,7 @@ var axios_1 = __importDefault(require("axios"));
 var restApi_1 = require("../apis/restApi");
 var dataUtil_1 = require("../utils/dataUtil");
 var logger_1 = require("../utils/logger");
+var registerEntityWithUniqueId_1 = __importDefault(require("../utils/registerEntityWithUniqueId"));
 var DiyDeviceController = (function () {
     function DiyDeviceController(_a) {
         var deviceId = _a.deviceId, ip = _a.ip, _b = _a.port, port = _b === void 0 ? 8081 : _b, disabled = _a.disabled, txt = _a.txt, unique_id = _a.unique_id;
@@ -98,6 +99,7 @@ DiyDeviceController.prototype.updateState = function (status) {
             }).catch(function (e) {
                 logger_1.logger.warn("Update DIY device state to HA error, deviceId: ".concat(_this.deviceId));
             });
+            (0, registerEntityWithUniqueId_1.default)(this.entityId, this.unique_id);
             return [2];
         });
     });

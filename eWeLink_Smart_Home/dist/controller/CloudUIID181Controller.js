@@ -57,6 +57,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var CloudDeviceController_1 = __importDefault(require("./CloudDeviceController"));
 var coolkit_ws_1 = __importDefault(require("coolkit-ws"));
 var restApi_1 = require("../apis/restApi");
+var registerEntityWithUniqueId_1 = __importDefault(require("../utils/registerEntityWithUniqueId"));
 var CloudUIID181Controller = (function (_super) {
     __extends(CloudUIID181Controller, _super);
     function CloudUIID181Controller(props) {

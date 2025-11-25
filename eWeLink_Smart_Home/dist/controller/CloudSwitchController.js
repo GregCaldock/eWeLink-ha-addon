@@ -57,6 +57,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var CloudDeviceController_1 = __importDefault(require("./CloudDeviceController"));
 var restApi_1 = require("../apis/restApi");
 var coolkit_ws_1 = __importDefault(require("coolkit-ws"));
+var registerEntityWithUniqueId_1 = __importDefault(require("../utils/registerEntityWithUniqueId"));
 var CloudSwitchController = (function (_super) {
     __extends(CloudSwitchController, _super);
     function CloudSwitchController(params) {
@@ -116,6 +117,7 @@ CloudSwitchController.prototype.updateState = function (status) {
                     unique_id: this.unique_id,
                 },
             });
+            (0, registerEntityWithUniqueId_1.default)(this.entityId, this.unique_id);
             return [2];
         });
     });

@@ -93,7 +93,6 @@ var Controller = (function () {
                 port: tmp.srv.port,
                 deviceId: id,
                 disabled: disabled,
-                    unique_id: generatedUniqueId,
                 txt: tmp.txt,
                 unique_id: generatedUniqueId,
             });

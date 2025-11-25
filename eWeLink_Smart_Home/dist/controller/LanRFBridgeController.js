@@ -82,6 +82,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var lodash_1 = __importDefault(require("lodash"));
 var lanDeviceApi_1 = require("../apis/lanDeviceApi");
 var restApi_1 = require("../apis/restApi");
+var registerEntityWithUniqueId_1 = __importDefault(require("../utils/registerEntityWithUniqueId"));
 var LanDeviceController_1 = __importDefault(require("./LanDeviceController"));
 var LanRFBridgeController = (function (_super) {
     __extends(LanRFBridgeController, _super);

@@ -55,6 +55,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var restApi_1 = require("../apis/restApi");
+var registerEntityWithUniqueId_1 = __importDefault(require("../utils/registerEntityWithUniqueId"));
 var dataUtil_1 = require("../utils/dataUtil");
 var LanDeviceController_1 = __importDefault(require("./LanDeviceController"));
 var lanDeviceApi_1 = require("../apis/lanDeviceApi");
