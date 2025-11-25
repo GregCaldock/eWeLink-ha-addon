@@ -1,5 +1,9 @@
 # Changelogs
 
+## v1.5.0
+
+- Add unique_id
+
 ## v1.4.5
 
 -   Fix docker image build error
