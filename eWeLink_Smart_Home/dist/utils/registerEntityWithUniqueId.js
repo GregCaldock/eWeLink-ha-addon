@@ -39,13 +39,53 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var axios_1 = __importDefault(require("axios"));
+var AuthClass_1 = __importDefault(require("../class/AuthClass"));
+var url_1 = require("../config/url");
 var logger_1 = require("./logger");
 var registerEntityWithUniqueId = function (entityId, uniqueId) { return __awaiter(void 0, void 0, void 0, function () {
+    var restRequest, entityRegistryData, entityRegistry, matchedEntity, updateData, error_1;
     return __generator(this, function (_a) {
-        // Entity unique_id is already included in attributes from controller
-        // This is a placeholder for future Home Assistant API integration
-        logger_1.logger.debug("Entity unique_id: ".concat(entityId, " -> ").concat(uniqueId));
-        return [2];
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 4, , 5]);
+                restRequest = axios_1.default.create({
+                    baseURL: url_1.HaRestURL,
+                    timeout: 5000,
+                });
+                restRequest.interceptors.request.use(function (val) {
+                    val.headers = {
+                        Authorization: "Bearer ".concat(AuthClass_1.default.curAuth),
+                        'Content-Type': 'application/json',
+                    };
+                    return val;
+                });
+                return [4, restRequest.get('/api/config/entity_registry/list')];
+            case 1:
+                entityRegistryData = _a.sent();
+                if (!entityRegistryData.data) return [3, 4];
+                entityRegistry = entityRegistryData.data;
+                matchedEntity = entityRegistry.find(function (e) { return e.entity_id === entityId; });
+                if (!matchedEntity) return [3, 4];
+                updateData = {
+                    unique_id: uniqueId,
+                };
+                return [4, restRequest({
+                        method: 'POST',
+                        url: "/api/config/entity_registry/update/".concat(matchedEntity.id),
+                        data: updateData,
+                    })];
+            case 2:
+                _a.sent();
+                logger_1.logger.debug("Updated unique_id in HA entity registry: ".concat(entityId, " -> ").concat(uniqueId));
+                return [3, 5];
+            case 3:
+                error_1 = _a.sent();
+                logger_1.logger.debug("Could not update entity registry for ".concat(entityId, ": ").concat(error_1.message));
+                return [3, 5];
+            case 4: return [2];
+            case 5: return [2];
+        }
     });
 }); };
 exports.default = registerEntityWithUniqueId;
