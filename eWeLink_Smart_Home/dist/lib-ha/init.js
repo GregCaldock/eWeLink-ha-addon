@@ -63,6 +63,7 @@ var eventBus_1 = __importDefault(require("../utils/eventBus"));
 var process_1 = __importDefault(require("process"));
 var logger_1 = require("../utils/logger");
 var api_1 = require("./api");
+var initMqtt_1 = require("./initMqtt");
 var uuid4 = require('uuid').v4;
 var WS_ONLINE = 2;
 var WS_OFFLINE = 3;
@@ -162,17 +163,24 @@ function closeWs2Ck() {
 exports.closeWs2Ck = closeWs2Ck;
 function init() {
     return __awaiter(this, void 0, void 0, function () {
-        var userData, userApiKey, gwData, gwuuid, found, data, deviceListRes, deviceList, newGwData, index, i, userGwuuid, apikey, deviceid, region, devList, devList_1, devList_1_1, dev, entities, online, params;
+        var userData, userApiKey, gwData, gwuuid, found, data, deviceListRes, deviceList, newGwData, index, i, userGwuuid, apikey, deviceid, region, devList, devList_1, devList_1_1, dev, entities, online, params, mqttReady;
         var e_1, _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     logger_1.logger.info('Start init lib-ha...');
+                    // Initialize MQTT for Home Assistant discovery
+                    return [4, (0, initMqtt_1.initMqttForHomeAssistant)()];
+                case 1:
+                    mqttReady = _b.sent();
+                    if (!mqttReady) {
+                        logger_1.logger.warn('MQTT not available, continuing without discovery support');
+                    }
                     if (!lodash_1.default.get(ws2ha, 'connected')) {
                         exports.ws2ha = ws2ha = new WebSocket2Ha_1.WebSocket2Ha();
                     }
                     return [4, (0, dataUtil_1.initLibHaFiles)()];
-                case 1:
+                case 2:
                     _b.sent();
                     userData = (0, dataUtil_1.getDataSync)('user.json', ['user']);
                     if (!userData) {
@@ -180,10 +188,10 @@ function init() {
                     }
                     userApiKey = userData.apikey;
                     return [4, (0, dataUtil_1.getGwData)()];
-                case 2:
+                case 3:
                     gwData = _b.sent();
                     gwuuid = uuid4();
-                    if (!!(found = lodash_1.default.find(gwData, { userApiKey: userApiKey }))) return [3, 4];
+                    if (!!(found = lodash_1.default.find(gwData, { userApiKey: userApiKey }))) return [3, 5];
                     data = {
                         userApiKey: userData.apikey,
                         gwuuid: gwuuid,
@@ -192,21 +200,21 @@ function init() {
                     gwData.push(data);
                     exports.curUserGwData = curUserGwData = data;
                     return [4, (0, dataUtil_1.setGwData)(gwData)];
-                case 3:
-                    _b.sent();
-                    return [3, 5];
                 case 4:
+                    _b.sent();
+                    return [3, 6];
+                case 5:
                     exports.curUserGwData = curUserGwData = found;
-                    _b.label = 5;
-                case 5: return [4, coolkit_api_1.default.device.getThingList()];
-                case 6:
+                    _b.label = 6;
+                case 6: return [4, coolkit_api_1.default.device.getThingList()];
+                case 7:
                     deviceListRes = _b.sent();
                     if (deviceListRes.error !== 0) {
                         return [2];
                     }
                     deviceList = deviceListRes.data.thingList;
                     return [4, (0, dataUtil_1.getGwData)()];
-                case 7:
+                case 8:
                     newGwData = _b.sent();
                     index = lodash_1.default.findIndex(newGwData, { userApiKey: userApiKey });
                     for (i = 0; i < deviceList.length; i++) {

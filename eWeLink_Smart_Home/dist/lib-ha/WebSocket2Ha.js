@@ -59,6 +59,7 @@ var coolkit_api_device_1 = __importDefault(require("coolkit-api-device"));
 var coolkit_ws_device_1 = __importDefault(require("coolkit-ws-device"));
 var process_1 = __importDefault(require("process"));
 var logger_1 = require("../utils/logger");
+var mqtt_discovery_1 = require("../mqtt/mqtt_discovery");
 var ENTITY_TYPE_ALLOW_LIST = ['switch', 'light'];
 function allowedEntityType(entityType) {
     return ENTITY_TYPE_ALLOW_LIST.includes(entityType);
@@ -353,6 +354,14 @@ var WebSocket2Ha = (function () {
                             }
                             else {
                                 result[index].entities.push({ entityId: entityId, entityData: entityList[i], entityState: entityState });
+                            }
+                            // Publish MQTT discovery for this entity
+                            try {
+                                var stateTopic = "homeassistant/ewelink_smart_home/".concat(deviceId, "/").concat(entityList[i]['entity_id'].split('.')[1], "/state");
+                                (0, mqtt_discovery_1.publishEntityDiscovery)(entityList[i], deviceId, stateTopic, null);
+                            }
+                            catch (err) {
+                                logger_1.logger.verbose("Error publishing MQTT discovery for entity: ".concat(err.message));
                             }
                         }
                         logger_1.logger.verbose("getHaDeviceEntityMap: result: ".concat(JSON.stringify(result)));

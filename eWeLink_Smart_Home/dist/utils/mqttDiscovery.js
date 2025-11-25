@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
     var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }); 
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -36,17 +36,49 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// Solution: unique_id must be set during initial entity discovery in Home Assistant
-// Since REST API doesn't support this, entities are now created with unique_id in attributes
-// To properly register: delete eWeLink entities from HA and restart this addon
-// OR use MQTT discovery by setting MQTT_BROKER environment variable
-var registerEntityWithUniqueId = function (entityId, uniqueId) {
+exports.publishDiscovery = void 0;
+var logger_1 = require("./logger");
+var mqtt_client_1 = require("../mqtt/mqtt_client");
+var publishDiscovery = function (entityId, deviceId, deviceName, entityType, uniqueId) {
     return __awaiter(void 0, void 0, void 0, function () {
+        var discoveryTopic, payload, client, error_1;
         return __generator(this, function (_a) {
-            // Placeholder - unique_id is already in state attributes
-            // Home Assistant will pick it up if entities are recreated via MQTT discovery
-            return [2];
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    discoveryTopic = "homeassistant/".concat(entityType.split('.')[0], "/ewelink_").concat(deviceId, "/").concat(entityId, "/config");
+                    payload = {
+                        unique_id: uniqueId,
+                        name: deviceName,
+                        object_id: entityId,
+                        state_topic: "homeassistant/".concat(entityType, "/").concat(entityId, "/state"),
+                        availability_topic: "homeassistant/ewelink/availability",
+                        payload_available: "online",
+                        payload_not_available: "offline",
+                        device: {
+                            identifiers: ["ewelink_".concat(deviceId)],
+                            name: deviceName,
+                            manufacturer: "eWeLink",
+                        },
+                    };
+                    client = mqtt_client_1.getMQTTClient();
+                    if (!client || !client.connected) {
+                        logger_1.logger.debug("MQTT not connected, skipping discovery publish for ".concat(entityId));
+                        return [2];
+                    }
+                    return [4, client.publish(discoveryTopic, JSON.stringify(payload), { retain: true })];
+                case 1:
+                    _a.sent();
+                    logger_1.logger.debug("Published MQTT discovery for: ".concat(entityId));
+                    return [3, 3];
+                case 2:
+                    error_1 = _a.sent();
+                    logger_1.logger.debug("Failed to publish MQTT discovery for ".concat(entityId, ": ").concat(error_1.message));
+                    return [3, 3];
+                case 3:
+                    return [2];
+            }
         });
     });
 };
-exports.default = registerEntityWithUniqueId;
+exports.publishDiscovery = publishDiscovery;
