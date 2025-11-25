@@ -220,6 +220,7 @@ exports.default = (function () { return __awaiter(void 0, void 0, void 0, functi
                                 type: 12,
                                 data: item.itemData,
                                 index: deviceIndex,
+                                unique_id: "ewelink_".concat(deviceid),
                             });
                             if (device instanceof CloudSwitchController_1.default) {
                                 !device.disabled && device.updateState(params.switch);

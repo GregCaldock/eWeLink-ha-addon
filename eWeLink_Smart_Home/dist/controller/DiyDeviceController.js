@@ -45,7 +45,7 @@ var dataUtil_1 = require("../utils/dataUtil");
 var logger_1 = require("../utils/logger");
 var DiyDeviceController = (function () {
     function DiyDeviceController(_a) {
-        var deviceId = _a.deviceId, ip = _a.ip, _b = _a.port, port = _b === void 0 ? 8081 : _b, disabled = _a.disabled, txt = _a.txt;
+        var deviceId = _a.deviceId, ip = _a.ip, _b = _a.port, port = _b === void 0 ? 8081 : _b, disabled = _a.disabled, txt = _a.txt, unique_id = _a.unique_id;
         this.type = 1;
         this.uiid = 1;
         this.deviceId = deviceId;
@@ -54,6 +54,7 @@ var DiyDeviceController = (function () {
         this.entityId = "switch.".concat(deviceId);
         this.disabled = disabled;
         this.txt = txt;
+        this.unique_id = unique_id || "ewelink_".concat(deviceId);
         this.deviceName = (0, dataUtil_1.getDataSync)('diy.json', [deviceId, 'deviceName']) || "DIY-".concat(deviceId);
     }
     return DiyDeviceController;
@@ -92,6 +93,7 @@ DiyDeviceController.prototype.updateState = function (status) {
                     supported_features: 0,
                     friendly_name: this.deviceName || this.entityId,
                     state: status,
+                    unique_id: this.unique_id,
                 },
             }).catch(function (e) {
                 logger_1.logger.warn("Update DIY device state to HA error, deviceId: ".concat(_this.deviceId));

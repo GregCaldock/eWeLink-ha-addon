@@ -8,7 +8,7 @@ var logger_1 = require("../utils/logger");
 var LanDeviceController = (function () {
     function LanDeviceController(props) {
         this.type = 2;
-        var deviceId = props.deviceId, ip = props.ip, _a = props.port, port = _a === void 0 ? 8081 : _a, disabled = props.disabled, encryptedData = props.encryptedData, iv = props.iv, target = props.target, index = props.index;
+        var deviceId = props.deviceId, ip = props.ip, _a = props.port, port = _a === void 0 ? 8081 : _a, disabled = props.disabled, encryptedData = props.encryptedData, iv = props.iv, target = props.target, index = props.index, unique_id = props.unique_id;
         this.ip = ip;
         this.target = target;
         this.port = port;
@@ -17,6 +17,7 @@ var LanDeviceController = (function () {
         this.disabled = disabled;
         this.encryptedData = encryptedData;
         this.online = true;
+        this.unique_id = unique_id || "ewelink_".concat(deviceId);
         var devicekey = props.devicekey, selfApikey = props.selfApikey, deviceName = props.deviceName, extra = props.extra, params = props.params, uiid = props.uiid;
         this.devicekey = devicekey;
         this.selfApikey = selfApikey;

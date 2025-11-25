@@ -11,6 +11,7 @@ var CloudDeviceController = (function () {
         this.online = data.online;
         this.devicekey = data.devicekey;
         this.disabled = data.disabled || false;
+        this.unique_id = data.unique_id || "ewelink_".concat(data.deviceId);
     }
     return CloudDeviceController;
 }());

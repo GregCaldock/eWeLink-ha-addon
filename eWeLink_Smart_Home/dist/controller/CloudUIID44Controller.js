@@ -110,6 +110,7 @@ CloudUIID44Controller.prototype.updateState = function (_a) {
                     restored: false,
                     supported_features: 4,
                     friendly_name: this.deviceName,
+                    unique_id: this.unique_id,
                     supported_color_modes: ['brightness'],
                     state: state,
                     brightness: (br * 2.55) >> 0,

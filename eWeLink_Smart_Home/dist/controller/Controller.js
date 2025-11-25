@@ -76,12 +76,13 @@ var Controller = (function () {
         return Controller.deviceMap.get(tmp).deviceName || '';
     };
     Controller.setDevice = function (params) {
-        var id = params.id, type = params.type, data = params.data, lanType = params.lanType, index = params.index;
+        var id = params.id, type = params.type, data = params.data, lanType = params.lanType, index = params.index, unique_id = params.unique_id;
         var _index = index || this.count++;
         if (lodash_1.default.isEmpty(id)) {
             return null;
         }
         var disabled = (0, dataUtil_1.getDataSync)('disabled.json', [id]) || false;
+        var generatedUniqueId = unique_id || "ewelink_".concat(id);
         if (type === 1) {
             var tmp = data;
             if (!tmp.a) {
@@ -92,7 +93,9 @@ var Controller = (function () {
                 port: tmp.srv.port,
                 deviceId: id,
                 disabled: disabled,
+                    unique_id: generatedUniqueId,
                 txt: tmp.txt,
+                unique_id: generatedUniqueId,
             });
             Controller.deviceMap.set(id, diyDevice);
             return diyDevice;
@@ -184,7 +187,9 @@ var Controller = (function () {
                     online: tmp.online,
                     devicekey: tmp.devicekey,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     index: _index,
+                    unique_id: generatedUniqueId,
                 });
                 Controller.deviceMap.set(id, switchDevice);
                 return switchDevice;
@@ -201,7 +206,9 @@ var Controller = (function () {
                     online: tmp.online,
                     devicekey: tmp.devicekey,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     index: _index,
+                    unique_id: generatedUniqueId,
                 });
                 Controller.deviceMap.set(id, device);
                 return device;
@@ -218,6 +225,7 @@ var Controller = (function () {
                     online: tmp.online,
                     devicekey: tmp.devicekey,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     index: _index,
                 });
                 Controller.deviceMap.set(id, device);
@@ -234,6 +242,7 @@ var Controller = (function () {
                     online: tmp.online,
                     devicekey: tmp.devicekey,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     index: _index,
                 });
                 Controller.deviceMap.set(id, device);
@@ -250,6 +259,7 @@ var Controller = (function () {
                     online: tmp.online,
                     devicekey: tmp.devicekey,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     index: _index,
                 });
                 Controller.deviceMap.set(id, thmDevice);
@@ -266,6 +276,7 @@ var Controller = (function () {
                     params: tmp.params,
                     online: tmp.online,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     index: _index,
                 });
                 Controller.deviceMap.set(id, rgbLight);
@@ -282,6 +293,7 @@ var Controller = (function () {
                     params: tmp.params,
                     online: tmp.online,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     index: _index,
                     tags: tmp.tags,
                 });
@@ -299,6 +311,7 @@ var Controller = (function () {
                     online: tmp.online,
                     devicekey: tmp.devicekey,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     index: _index,
                 });
                 Controller.deviceMap.set(id, switchDevice);
@@ -315,6 +328,7 @@ var Controller = (function () {
                     params: tmp.params,
                     online: tmp.online,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     index: _index,
                 });
                 Controller.deviceMap.set(id, fanLight);
@@ -331,6 +345,7 @@ var Controller = (function () {
                     params: tmp.params,
                     online: tmp.online,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     index: _index,
                 });
                 Controller.deviceMap.set(id, dimming);
@@ -347,6 +362,7 @@ var Controller = (function () {
                     params: tmp.params,
                     online: tmp.online,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     index: _index,
                 });
                 Controller.deviceMap.set(id, device);
@@ -362,6 +378,7 @@ var Controller = (function () {
                     params: tmp.params,
                     devicekey: tmp.devicekey,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     online: tmp.online,
                     index: _index,
                     devConfig: tmp.devConfig,
@@ -381,6 +398,7 @@ var Controller = (function () {
                     extra: tmp.extra,
                     index: _index,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                 });
                 Controller.deviceMap.set(id, device);
                 return device;
@@ -397,6 +415,7 @@ var Controller = (function () {
                     extra: tmp.extra,
                     index: _index,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                 });
                 Controller.deviceMap.set(id, device);
                 return device;
@@ -411,6 +430,7 @@ var Controller = (function () {
                     params: tmp.params,
                     devicekey: tmp.devicekey,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     online: tmp.online,
                     index: _index,
                 });
@@ -427,6 +447,7 @@ var Controller = (function () {
                     params: tmp.params,
                     devicekey: tmp.devicekey,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     tags: tmp.tags,
                     online: tmp.online,
                     index: _index,
@@ -444,6 +465,7 @@ var Controller = (function () {
                     params: tmp.params,
                     devicekey: tmp.devicekey,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     online: tmp.online,
                     index: _index,
                 });
@@ -460,6 +482,7 @@ var Controller = (function () {
                     params: tmp.params,
                     devicekey: tmp.devicekey,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     online: tmp.online,
                     index: _index,
                 });
@@ -476,6 +499,7 @@ var Controller = (function () {
                     params: tmp.params,
                     devicekey: tmp.devicekey,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     tags: tmp.tags,
                     online: tmp.online,
                     index: _index,
@@ -495,6 +519,7 @@ var Controller = (function () {
                     extra: tmp.extra,
                     index: _index,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                 });
                 Controller.deviceMap.set(id, device);
                 return device;
@@ -511,6 +536,7 @@ var Controller = (function () {
                     extra: tmp.extra,
                     index: _index,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                 });
                 Controller.deviceMap.set(id, device);
                 return device;
@@ -527,6 +553,7 @@ var Controller = (function () {
                     extra: tmp.extra,
                     index: _index,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                 });
                 Controller.deviceMap.set(id, device);
                 return device;
@@ -543,6 +570,7 @@ var Controller = (function () {
                     extra: tmp.extra,
                     index: _index,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                 });
                 Controller.deviceMap.set(id, device);
                 return device;
@@ -559,6 +587,7 @@ var Controller = (function () {
                     extra: tmp.extra,
                     index: _index,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                 });
                 Controller.deviceMap.set(id, device);
                 return device;
@@ -626,6 +655,7 @@ var Controller = (function () {
                     extra: tmp.extra,
                     index: _index,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                 });
                 Controller.deviceMap.set(id, device);
                 return device;
@@ -642,6 +672,7 @@ var Controller = (function () {
                     extra: tmp.extra,
                     index: _index,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                 });
                 Controller.deviceMap.set(id, device);
                 return device;
@@ -656,6 +687,7 @@ var Controller = (function () {
                     online: data.online,
                     devicekey: data.devicekey,
                     disabled: disabled,
+                    unique_id: generatedUniqueId,
                     index: -_index,
                 });
                 Controller.unsupportDeviceMap.set(id, unsupportDevice);

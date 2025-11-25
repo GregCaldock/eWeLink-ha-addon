@@ -205,6 +205,7 @@ CloudUIID104Controller.prototype.updateState = function (params) {
                     restored: false,
                     supported_features: 4,
                     friendly_name: this.deviceName,
+                    unique_id: this.unique_id,
                     supported_color_modes: ['color_temp', 'rgb'],
                     color_mode: ltype === 'white' ? 'color_temp' : ltype === 'color' ? 'rgb' : '',
                     effect_list: this.effectList,

@@ -123,6 +123,7 @@ CloudPowerDetectionSwitchController.prototype.updateState = function (_a) {
                         restored: false,
                         supported_features: 0,
                         friendly_name: this.deviceName,
+                    unique_id: this.unique_id,
                         power: "".concat(power || lodash_1.default.get(this, ['params', 'power'], 0), " W"),
                         state: state || lodash_1.default.get(this, ['params', 'switch']),
                     };

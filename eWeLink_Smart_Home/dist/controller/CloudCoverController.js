@@ -119,6 +119,7 @@ CloudCoverController.prototype.updateState = function (_a) {
                     restored: false,
                     supported_features: 15,
                     friendly_name: this.deviceName,
+                    unique_id: this.unique_id,
                     current_position: 100 - (setclose || this.params.setclose),
                     state: state,
                 },

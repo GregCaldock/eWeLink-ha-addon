@@ -122,6 +122,7 @@ LanPowerDetectionSwitchController.prototype.updateState = function (params) {
                         restored: false,
                         supported_features: 0,
                         friendly_name: this.deviceName,
+                    unique_id: this.unique_id,
                         power: "".concat(power || lodash_1.default.get(this, ['params', 'power'], 0), " W"),
                         current: "".concat(current || lodash_1.default.get(this, ['params', 'current'], 0), " A"),
                         voltage: "".concat(voltage || lodash_1.default.get(this, ['params', 'voltage'], 0), " V"),

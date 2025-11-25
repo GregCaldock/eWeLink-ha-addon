@@ -240,6 +240,7 @@ CloudUIID173Controller.prototype.updateState = function (params) {
                 restored: false,
                 supported_features: 4,
                 friendly_name: this.deviceName,
+                    unique_id: this.unique_id,
                 supported_color_modes: ['color_temp', 'rgb'],
                 color_mode: mode === 2 ? 'color_temp' : mode === 1 ? 'rgb' : '',
                 state: state,

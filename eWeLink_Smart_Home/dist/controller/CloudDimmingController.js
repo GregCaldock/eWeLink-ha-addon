@@ -108,6 +108,7 @@ CloudDimmingController.prototype.updateState = function (_a) {
                     restored: false,
                     supported_features: 1,
                     friendly_name: this.deviceName,
+                    unique_id: this.unique_id,
                     state: state,
                     brightness: bright * 2.55,
                 },

@@ -113,6 +113,7 @@ CloudTandHModificationController.prototype.updateState = function (status) {
                     restored: false,
                     supported_features: 0,
                     friendly_name: this.deviceName,
+                    unique_id: this.unique_id,
                     state: state,
                 },
             });
